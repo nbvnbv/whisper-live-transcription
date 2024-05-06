@@ -130,6 +130,10 @@ async def dummy_function(stream, new_chunk, max_length, latency_data,
         stream_resampled = librosa.resample(stream,
                                             orig_sr=sampling_rate,
                                             target_sr=16000)
+        
+        stream_resampled_final: np.ndarray = stream_resampled.astype(np.float32) / 255.0
+        #print(stream_resampled_final)
+
         sampling_end_time = time.time()
         latency_data["total_resampling_latency"].append(sampling_end_time -
                                                         sampling_start_time)
@@ -144,7 +148,7 @@ async def dummy_function(stream, new_chunk, max_length, latency_data,
 
         #transcription, language, language_pred = execute_blocking_whisper_prediction(model, stream_resampled, str(language_code))
 
-        result1 = await asyncio.get_running_loop().run_in_executor(None, execute_blocking_whisper_prediction, model, stream_resampled, str(language_code))
+        result1 = await asyncio.get_running_loop().run_in_executor(None, execute_blocking_whisper_prediction, model, stream_resampled_final, str(language_code))
         transcription = result1[0]
         language = result1[1]
         language_pred = result1[2]
@@ -375,8 +379,16 @@ else:
         ssl_certfile_path = None
         ssl_keyfile_path = None
 
+
+from pyngrok import ngrok
+ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
+ngrok_tunnel2 = ngrok.connect("5656")
+print(ngrok_tunnel2.public_url)
+
+
 demo.launch(server_name="0.0.0.0",
             server_port=5656,
             ssl_certfile=ssl_certfile_path,
             ssl_keyfile=ssl_keyfile_path,
-            ssl_verify=SSL_VERIFY)
+            ssl_verify=SSL_VERIFY,
+            share=True)
