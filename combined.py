@@ -93,7 +93,7 @@ def send_audio_to_server(audio_data: np.ndarray,
         "language_probability"]
 
 
-def dummy_function(stream, new_chunk, max_length, latency_data,
+async def dummy_function(stream, new_chunk, max_length, latency_data,
                    current_transcription, transcription_history,
                    language_code):
     start_time = time.time()
@@ -142,7 +142,12 @@ def dummy_function(stream, new_chunk, max_length, latency_data,
         #transcription, language, language_pred = send_audio_to_server(
         #    stream_resampled, str(language_code))
 
-        transcription, language, language_pred = execute_blocking_whisper_prediction(model, stream_resampled, str(language_code))
+        #transcription, language, language_pred = execute_blocking_whisper_prediction(model, stream_resampled, str(language_code))
+
+        result1 = await asyncio.get_running_loop().run_in_executor(None, execute_blocking_whisper_prediction, model, stream_resampled, str(language_code))
+        transcription = result1[0]
+        language = result1[1]
+        language_pred = result1[2]
 
         current_transcription = f"{transcription}"
         # remove anything from the text which is between () or [] --> these are non-verbal background noises/music/etc.
