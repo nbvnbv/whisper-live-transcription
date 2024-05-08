@@ -8,7 +8,7 @@ from faster_whisper import WhisperModel
 
 app = FastAPI()
 
-MODEL_TYPE = "large-v2"
+MODEL_TYPE = "nbv/nbvnbvATCmodelv1"
 RUN_TYPE = "gpu"  # "cpu" or "gpu"
 
 # For CPU usage (https://github.com/SYSTRAN/faster-whisper/issues/100#issuecomment-1492141352)
@@ -16,7 +16,7 @@ NUM_WORKERS = 10
 CPU_THREADS = 4
 
 # For GPU usage
-GPU_DEVICE_INDICES = [0, 1, 2, 3]
+GPU_DEVICE_INDICES = [0]
 
 VAD_FILTER = True
 
@@ -94,4 +94,10 @@ async def predict(
 
 
 if __name__ == "__main__":
+
+    from pyngrok import ngrok
+    ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
+    ngrok_tunnel2 = ngrok.connect("8008")
+    print(ngrok_tunnel2.public_url)
+
     uvicorn.run(app, host="0.0.0.0", port=8008)
