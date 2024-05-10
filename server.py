@@ -8,7 +8,7 @@ from faster_whisper import WhisperModel
 
 app = FastAPI()
 
-MODEL_TYPE = "nbv/nbvnbvATCmodelv1"
+MODEL_TYPE = "nbv/nbvnbvATCmodelv2"
 RUN_TYPE = "gpu"  # "cpu" or "gpu"
 
 # For CPU usage (https://github.com/SYSTRAN/faster-whisper/issues/100#issuecomment-1492141352)
@@ -51,6 +51,20 @@ async def parse_body(request: Request):
     data: bytes = await request.body()
     return data
 
+def convert_number_words_to_digits(sentence):
+    number_words = {
+        'zero': '0', 'one': '1', 'two': '2', 'three': '3', 'four': '4',
+        'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9'
+    }
+
+    words = sentence.split()
+    for i, word in enumerate(words):
+        if word.lower() in number_words:
+            words[i] = number_words[word.lower()]
+
+    return ' '.join(words)
+
+
 
 def execute_blocking_whisper_prediction(
         model: WhisperModel,
@@ -66,6 +80,7 @@ def execute_blocking_whisper_prediction(
     segments = [s.text for s in segments]
     transcription = " ".join(segments)
     transcription = transcription.strip()
+    transcription = convert_number_words_to_digits(transcription)
     return transcription, info.language, info.language_probability
 
 
