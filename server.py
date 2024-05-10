@@ -76,7 +76,7 @@ def execute_blocking_whisper_prediction(
         language=language_code if language_code != "" else None,
         beam_size=5,
         vad_filter=VAD_FILTER,
-        vad_parameters=dict(min_silence_duration_ms=500))
+        vad_parameters=dict(min_silence_duration_ms=1000)) #default 500
     segments = [s.text for s in segments]
     transcription = " ".join(segments)
     transcription = transcription.strip()
