@@ -54,7 +54,8 @@ async def parse_body(request: Request):
 def convert_number_words_to_digits(sentence):
     number_words = {
         'zero': '0', 'one': '1', 'two': '2', 'three': '3', 'four': '4',
-        'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9'
+        'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9',
+        '0':'0/zulu'
     }
 
     words = sentence.split()
