@@ -55,7 +55,6 @@ def convert_number_words_to_digits(sentence):
     number_words = {
         'zero': '0', 'one': '1', 'two': '2', 'three': '3', 'four': '4',
         'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9',
-        '0':'0/zulu'
     }
 
     words = sentence.split()
@@ -77,7 +76,7 @@ def execute_blocking_whisper_prediction(
         language=language_code if language_code != "" else None,
         beam_size=6, #default 5
         vad_filter=VAD_FILTER,
-        vad_parameters=dict(min_silence_duration_ms=1000)) #default 500
+        vad_parameters=dict(min_silence_duration_ms=500)) #default 500
     segments = [s.text for s in segments]
     transcription = " ".join(segments)
     transcription = transcription.strip()
