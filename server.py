@@ -5,6 +5,9 @@ import numpy as np
 import uvicorn
 from fastapi import Depends, FastAPI, Request
 from faster_whisper import WhisperModel
+import subprocess
+
+
 
 app = FastAPI()
 
@@ -110,6 +113,7 @@ async def predict(
 
 if __name__ == "__main__":
 
+    subprocess.run(["pylt", "port", "8008"]) 
     #from pyngrok import ngrok
     #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
     #ngrok_tunnel2 = ngrok.connect("8008")
