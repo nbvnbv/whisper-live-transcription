@@ -120,4 +120,3 @@ if __name__ == "__main__":
     #print(ngrok_tunnel2.public_url)
 
     uvicorn.run(app, host="127.0.0.1", port=8008)
-    subprocess.run(["pylt", "port", "8008"]) 
