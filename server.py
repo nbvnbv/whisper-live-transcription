@@ -110,9 +110,9 @@ async def predict(
 
 if __name__ == "__main__":
 
-    from pyngrok import ngrok
-    ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
-    ngrok_tunnel2 = ngrok.connect("8008")
-    print(ngrok_tunnel2.public_url)
+    #from pyngrok import ngrok
+    #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
+    #ngrok_tunnel2 = ngrok.connect("8008")
+    #print(ngrok_tunnel2.public_url)
 
     uvicorn.run(app, host="0.0.0.0", port=8008)
