@@ -119,4 +119,4 @@ if __name__ == "__main__":
     #ngrok_tunnel2 = ngrok.connect("8008")
     #print(ngrok_tunnel2.public_url)
 
-    uvicorn.run(app, host="0.0.0.0", port=8008)
+    uvicorn.run(app, host="127.0.0.1", port=8008)
