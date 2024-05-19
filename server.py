@@ -1,5 +1,7 @@
 import asyncio
 from typing import Tuple
+import threading
+import time
 
 import numpy as np
 import uvicorn
@@ -110,12 +112,30 @@ async def predict(
         "language_probability": result[2]
     }
 
+
+
+def run_serveo():
+    serveo_process = subprocess.Popen(
+        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "serveo.net"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+
+    # Capture the output URL
+    for line in serveo_process.stdout:
+        if "Forwarding HTTP traffic from" in line:
+            print(line.strip())
+            break
+
+    return serveo_process
+
+
 if __name__ == "__main__":
 
-    serveo_process = subprocess.Popen(
-        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8000", "serveo.net"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    serveo_thread = threading.Thread(target=run_serveo)
+    serveo_thread.start()
+
+    time.sleep(2)
+
     #from pyngrok import ngrok
     #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
     #ngrok_tunnel2 = ngrok.connect("8008")
@@ -123,5 +143,3 @@ if __name__ == "__main__":
 
     uvicorn.run(app, host="127.0.0.1", port=8008)
 
-    serveo_process.terminate()
-    serveo_process.wait()
