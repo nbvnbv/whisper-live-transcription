@@ -116,7 +116,7 @@ async def predict(
 
 def run_serveo():
     serveo_process = subprocess.Popen(
-        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "serveo.net"],
+        ["gradio-tunneling", "--port", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
 
