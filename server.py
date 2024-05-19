@@ -113,26 +113,23 @@ async def predict(
     }
 
 
-
-def run_serveo():
-    serveo_process = subprocess.Popen(
-        ["lt", "--port", "8008"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-
-    # Capture the output URL
-    for line in serveo_process.stdout:
-        if "Forwarding HTTP traffic from" in line:
+def run_localtunnel():
+    # Start the LocalTunnel process and capture its output
+    lt_process = subprocess.Popen(["lt", "--port", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    # Parse the output to get the URL
+    for line in lt_process.stdout:
+        if "your url is:" in line:
             print(line.strip())
             break
-
-    return serveo_process
+    
+    return lt_process
 
 
 if __name__ == "__main__":
 
-    serveo_thread = threading.Thread(target=run_serveo)
-    serveo_thread.start()
+    lt_thread = threading.Thread(target=run_localtunnel)
+    lt_thread.start()
 
     time.sleep(2)
 
