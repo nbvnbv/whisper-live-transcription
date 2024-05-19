@@ -116,7 +116,7 @@ async def predict(
 
 def run_serveo():
     serveo_process = subprocess.Popen(
-        ["gradio-tunneling", "--port", "8008"],
+        ["lt", "--port", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
 
