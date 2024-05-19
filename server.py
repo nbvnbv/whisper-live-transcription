@@ -113,7 +113,7 @@ async def predict(
 if __name__ == "__main__":
 
     serveo_process = subprocess.Popen(
-        ["ssh", "-R", "80:localhost:8008", "serveo.net"],
+        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8000", "serveo.net"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
     #from pyngrok import ngrok
