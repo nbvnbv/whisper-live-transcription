@@ -118,7 +118,7 @@ def run_localtunnel():
 
     ssh_command = f"ssh -R nbvnbv:80:127.0.0.1:8008 serveo.net"
 
-    lt_process = subprocess.Popen(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    lt_process = subprocess.Popen(["ssh", "-R", "nbvnbv:80:127.0.0.1:8008", "serveo.net"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
     # Parse the output to get the URL
     for line in lt_process.stdout:
