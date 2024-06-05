@@ -115,7 +115,10 @@ async def predict(
 
 def run_localtunnel():
     # Start the LocalTunnel process and capture its output
-    lt_process = subprocess.Popen(["lt", "--port", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    ssh_command = f"ssh -R nbvnbv:80:127.0.0.1:8008 serveo.net"
+
+    lt_process = subprocess.Popen(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
     # Parse the output to get the URL
     for line in lt_process.stdout:
