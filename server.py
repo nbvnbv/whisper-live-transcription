@@ -134,6 +134,7 @@ if __name__ == "__main__":
 
     lt_thread = threading.Thread(target=run_localtunnel)
     lt_thread.start()
+    print(lt_thread)
 
     time.sleep(2)
 
