@@ -116,15 +116,15 @@ async def predict(
 def run_localtunnel():
     # Start the LocalTunnel process and capture its output
 
-    ssh_command = f"!ssh -R 80:127.0.0.1:8008 serveo.net -o StrictHostKeyChecking=no"
+    ssh_command = f"ssh -R 80:127.0.0.1:8008 serveo.net -o StrictHostKeyChecking=no"
 
-    lt_process = subprocess.Popen(["ssh", "-R", "nbvnbv.serveo.net:80:127.0.0.1:8008", "serveo.net", "-o", "StrictHostKeyChecking=no"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    lt_process = subprocess.Popen(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     
-    # Parse the output to get the URL
-    for line in lt_process.stdout:
-        if "your url is:" in line:
-            print(line.strip())
-            break
+    # Extract the URL from the SSH command output
+    url = lt_process.stdout.read().decode().strip()
+
+    # Now 'url' contains the Serveo URL for your remote port forwarding
+    print(f'Serveo URL: {url}')
     
     return lt_process
 
