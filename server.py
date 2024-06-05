@@ -118,12 +118,13 @@ def run_localtunnel():
 
     ssh_command = f"ssh -R 80:127.0.0.1:8008 serveo.net -o StrictHostKeyChecking=no"
 
-    lt_process = subprocess.Popen(ssh_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    lt_process = subprocess.Popen(ssh_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
     # Extract the URL from the SSH command output
     url = lt_process.stdout.read().decode().strip()
 
     # Now 'url' contains the Serveo URL for your remote port forwarding
+    print('testttttttttttttt')
     print(f'Serveo URL: {url}')
     
     return lt_process
