@@ -127,31 +127,26 @@ async def predict(
 #    return lt_process
 
 
-def run_localhost_run():
-    # Start the SSH tunnel and capture its output
-    tunnel_process = subprocess.Popen(
-        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "localhost.run"],
+def run_loophole():
+    loophole_process = subprocess.Popen(
+        ["loophole", "http", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-    
-    # Parse the output to get the URL
-    for line in tunnel_process.stdout:
-        if "Your HTTP tunnel is" in line:
+    for line in loophole_process.stdout:
+        if "https://" in line:
             print(line.strip())
             break
-    
-    return tunnel_process
+    return loophole_process
 
 
 if __name__ == "__main__":
 
-    # Start the SSH tunnel process in a separate thread
-    tunnel_thread = threading.Thread(target=run_localhost_run)
-    tunnel_thread.start()
+    # Start the Loophole tunnel in a separate thread
+    loophole_thread = threading.Thread(target=run_loophole)
+    loophole_thread.start()
 
-    # Give the tunnel some time to set up
+    # Give Loophole some time to set up
     time.sleep(5)
-
 
     #from pyngrok import ngrok
     #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
