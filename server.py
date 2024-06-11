@@ -130,7 +130,7 @@ async def predict(
 def run_serveo():
     # Start the Serveo SSH tunnel and capture its output
     serveo_process = subprocess.Popen(
-        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "nbvnbv:80:localhost:8008", "serveo.net"],
+        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "localhost.run"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     
