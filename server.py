@@ -129,7 +129,7 @@ async def predict(
 
 def run_loophole():
     loophole_process = subprocess.Popen(
-        ["loophole", "http", "8008"],
+        ["/kaggle/working/loophole-cli_1.0.0-beta.15_linux_64bit/loophole", "http", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in loophole_process.stdout:
