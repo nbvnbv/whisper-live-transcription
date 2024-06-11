@@ -130,12 +130,12 @@ def run_localtunnel():
 
 if __name__ == "__main__":
 
-    # Start the Loophole tunnel in a separate thread
-    loophole_thread = threading.Thread(target=run_localtunnel)
-    loophole_thread.start()
+    # Start the lt tunnel in a separate thread
+    lt_thread = threading.Thread(target=run_localtunnel)
+    lt_thread.start()
 
-    # Give Loophole some time to set up
-    time.sleep(5)
+    # Give lt some time to set up
+    time.sleep(2)
 
     #from pyngrok import ngrok
     #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
