@@ -114,35 +114,24 @@ async def predict(
 
 
 
-#def run_localtunnel():
-#    # Start the LocalTunnel process and capture its output
-#    lt_process = subprocess.Popen(["lt", "--port", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-#    
-#    # Parse the output to get the URL
-#    for line in lt_process.stdout:
-#        if "your url is:" in line:
-#            print(line.strip())
-#            break
-#    
-#    return lt_process
-
-
-def run_loophole():
-    loophole_process = subprocess.Popen(
-        ["/kaggle/working/loophole-cli_1.0.0-beta.15_linux_64bit/loophole", "http", "8008"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
-    )
-    for line in loophole_process.stdout:
-        if "https://" in line:
+def run_localtunnel():
+    # Start the LocalTunnel process and capture its output
+    lt_process = subprocess.Popen(["lt", "--port", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    # Parse the output to get the URL
+    for line in lt_process.stdout:
+        if "your url is:" in line:
             print(line.strip())
             break
-    return loophole_process
+    
+    return lt_process
+
 
 
 if __name__ == "__main__":
 
     # Start the Loophole tunnel in a separate thread
-    loophole_thread = threading.Thread(target=run_loophole)
+    loophole_thread = threading.Thread(target=run_localtunnel)
     loophole_thread.start()
 
     # Give Loophole some time to set up
