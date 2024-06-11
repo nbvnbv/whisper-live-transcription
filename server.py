@@ -127,30 +127,31 @@ async def predict(
 #    return lt_process
 
 
-def run_serveo():
-    # Start the Serveo SSH tunnel and capture its output
-    serveo_process = subprocess.Popen(
+def run_localhost_run():
+    # Start the SSH tunnel and capture its output
+    tunnel_process = subprocess.Popen(
         ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "localhost.run"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     
     # Parse the output to get the URL
-    for line in serveo_process.stdout:
-        if "Forwarding HTTP traffic from" in line:
+    for line in tunnel_process.stdout:
+        if "Your HTTP tunnel is" in line:
             print(line.strip())
             break
     
-    return serveo_process
+    return tunnel_process
 
 
 if __name__ == "__main__":
 
-    # Start the Serveo process in a separate thread
-    serveo_thread = threading.Thread(target=run_serveo)
-    serveo_thread.start()
+    # Start the SSH tunnel process in a separate thread
+    tunnel_thread = threading.Thread(target=run_localhost_run)
+    tunnel_thread.start()
 
-    # Give Serveo some time to set up
+    # Give the tunnel some time to set up
     time.sleep(5)
+
 
     #from pyngrok import ngrok
     #ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
