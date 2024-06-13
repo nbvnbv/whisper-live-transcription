@@ -137,7 +137,7 @@ if __name__ == "__main__":
     # Give lt some time to set up
     #time.sleep(2)
 
-    #from pyngrok import ngrok
+    from pyngrok import ngrok
     ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
     ngrok_tunnel2 = ngrok.connect("8008")
     print(ngrok_tunnel2.public_url)
