@@ -131,18 +131,18 @@ def run_localtunnel():
 if __name__ == "__main__":
 
     # Start the lt tunnel in a separate thread
-    lt_thread = threading.Thread(target=run_localtunnel)
-    lt_thread.start()
+    #lt_thread = threading.Thread(target=run_localtunnel)
+    #lt_thread.start()
 
     # Give lt some time to set up
-    time.sleep(2)
+    #time.sleep(2)
 
-    '''
+    #'''
     from pyngrok import ngrok
     ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
     ngrok_tunnel2 = ngrok.connect("8008")
     print(ngrok_tunnel2.public_url)
-    '''
+    #'''
 
     uvicorn.run(app, host="127.0.0.1", port=8008)
 
