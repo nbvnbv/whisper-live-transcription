@@ -113,7 +113,7 @@ async def predict(
     }
 
 
-
+'''
 def run_localtunnel():
     # Start the LocalTunnel process and capture its output
     lt_process = subprocess.Popen(["lt", "--port", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -125,7 +125,19 @@ def run_localtunnel():
             break
     
     return lt_process
+'''
 
+def run_tunnelmole():
+    # Start the tunnelmole process and capture its output
+    lt_process = subprocess.Popen(["tmole", "8008", "as", "nbvnbv.tunnelmole.net"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    # Parse the output to get the URL
+    for line in lt_process.stdout:
+        if "your url is:" in line:
+            print(line.strip())
+            break
+    
+    return lt_process
 
 
 if __name__ == "__main__":
@@ -134,15 +146,18 @@ if __name__ == "__main__":
     #lt_thread = threading.Thread(target=run_localtunnel)
     #lt_thread.start()
 
-    # Give lt some time to set up
-    #time.sleep(2)
+    tm_thread = threading.Thread(target=run_tunnelmole)
+    tm_thread.start()
 
-    #'''
+    # Give lt some time to set up
+    time.sleep(2)
+
+    '''
     from pyngrok import ngrok
     ngrok.set_auth_token("2CyddSn0XrK93yRlk0n3K3moVLi_5uk1JDY9aSt5voT4koC4T")
     ngrok_tunnel2 = ngrok.connect("8008")
     print(ngrok_tunnel2.public_url)
-    #'''
+    '''
 
     uvicorn.run(app, host="127.0.0.1", port=8008)
 
