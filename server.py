@@ -135,7 +135,6 @@ def run_tunnelmole():
     for line in lt_process.stdout:
         if "http" in line:
             print(line.strip())
-            break
     
     return lt_process
 
