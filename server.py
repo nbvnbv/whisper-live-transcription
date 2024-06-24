@@ -129,7 +129,7 @@ def run_localtunnel():
 
 def run_tunnelmole():
     # Start the LocalTunnel process and capture its output
-    lt_process = subprocess.Popen(["tmole", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    lt_process = subprocess.Popen(["cloudflared", "tunnel", "--url", "http://localhost:8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
     # Parse the output to get the URL
     for line in lt_process.stdout:
