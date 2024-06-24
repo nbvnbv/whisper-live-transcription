@@ -14,7 +14,7 @@ import subprocess
 app = FastAPI()
 
 MODEL_TYPE = "nbv/nbvnbvATCmodelv2"
-RUN_TYPE = "gpu"  # "cpu" or "gpu"
+RUN_TYPE = "cpu"  # "cpu" or "gpu"
 
 # For CPU usage (https://github.com/SYSTRAN/faster-whisper/issues/100#issuecomment-1492141352)
 NUM_WORKERS = 10
