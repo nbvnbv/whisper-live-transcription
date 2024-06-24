@@ -127,12 +127,27 @@ def run_localtunnel():
     return lt_process
 
 
+def run_tunnelmole():
+    # Start the LocalTunnel process and capture its output
+    lt_process = subprocess.Popen(["tmole", "8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    
+    # Parse the output to get the URL
+    for line in lt_process.stdout:
+        if "http" in line:
+            print(line.strip())
+    
+    return lt_process
+
+
 
 if __name__ == "__main__":
 
     # Start the lt tunnel in a separate thread
-    lt_thread = threading.Thread(target=run_localtunnel)
-    lt_thread.start()
+    #lt_thread = threading.Thread(target=run_localtunnel)
+    #lt_thread.start()
+
+    tm_thread = threading.Thread(target=run_tunnelmole)
+    tm_thread.start()
 
     # Give lt some time to set up
     time.sleep(2)
