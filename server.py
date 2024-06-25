@@ -127,15 +127,16 @@ def run_localtunnel():
     return lt_process
 
 
-def run_localhost():
-    localhost_process = subprocess.Popen(
+def run_localhostrun():
+    localhostrun_process = subprocess.Popen(
         ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "nokey@localhost.run"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-    for line in localhost_process.stdout:
+    for line in localhostrun_process.stdout:
         if "localhost" in line or "https://" in line:
             print(line.strip())
-    return localhost_process
+    return localhostrun_process
+
 
 
 
@@ -145,11 +146,11 @@ if __name__ == "__main__":
     #lt_thread = threading.Thread(target=run_localtunnel)
     #lt_thread.start()
 
-    tm_thread = threading.Thread(target=run_localhost)
-    tm_thread.start()
+    localhostrun_thread = threading.Thread(target=run_localhostrun)
+    localhostrun_thread.start()
 
-    # Give lt some time to set up
-    time.sleep(2)
+    # Give localhostrun some time to set up
+    time.sleep(5)
 
     '''
     from pyngrok import ngrok
