@@ -133,8 +133,8 @@ def run_tunnelmole():
     
     # Parse the output to get the URL
     for line in lt_process.stdout:
-        if "http" in line:
-            print(line.strip())
+        #if "http" in line:
+        print(line.strip())
     
     return lt_process
 
