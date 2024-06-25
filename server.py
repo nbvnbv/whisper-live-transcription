@@ -127,16 +127,15 @@ def run_localtunnel():
     return lt_process
 
 
-def run_tunnelmole():
-    # Start the LocalTunnel process and capture its output
-    lt_process = subprocess.Popen(["cloudflared", "tunnel", "--url", "http://localhost:8008"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    
-    # Parse the output to get the URL
-    for line in lt_process.stdout:
-        #if "http" in line:
-        print(line.strip())
-    
-    return lt_process
+def run_localhost():
+    localhost_process = subprocess.Popen(
+        ["ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-R", "80:localhost:8008", "nokey@localhost.run"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+    for line in localhost_process.stdout:
+        if "localhost" in line or "https://" in line:
+            print(line.strip())
+    return localhost_process
 
 
 
@@ -146,7 +145,7 @@ if __name__ == "__main__":
     #lt_thread = threading.Thread(target=run_localtunnel)
     #lt_thread.start()
 
-    tm_thread = threading.Thread(target=run_tunnelmole)
+    tm_thread = threading.Thread(target=run_localhost)
     tm_thread.start()
 
     # Give lt some time to set up
