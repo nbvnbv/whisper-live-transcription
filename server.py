@@ -153,14 +153,14 @@ def run_hrzn():
 if __name__ == "__main__":
 
     # Start the lt tunnel in a separate thread
-    #lt_thread = threading.Thread(target=run_localtunnel)
-    #lt_thread.start()
+    lt_thread = threading.Thread(target=run_localtunnel)
+    lt_thread.start()
 
     #localhostrun_thread = threading.Thread(target=run_localhostrun)
     #localhostrun_thread.start()
 
-    hrzn_thread = threading.Thread(target=run_hrzn)
-    hrzn_thread.start()
+    #hrzn_thread = threading.Thread(target=run_hrzn)
+    #hrzn_thread.start()
 
     # Give localhostrun some time to set up
     time.sleep(5)
