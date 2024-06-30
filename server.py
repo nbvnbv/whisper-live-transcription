@@ -143,7 +143,7 @@ def run_hrzn():
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in hrzn_process.stdout:
-        if "http" in line or "https://" in line:
+        if "bore" in line or "https://" in line:
             print(line.strip())
     return hrzn_process
 
