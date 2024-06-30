@@ -139,7 +139,7 @@ def run_localhostrun():
 
 def run_hrzn():
     hrzn_process = subprocess.Popen(
-        ["/kaggle/working/bore", "local", "8008", "--to", "bore.pub"],
+        ["/kaggle/working/whisper-live-transcription/bore", "local", "8008", "--to", "bore.pub"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in hrzn_process.stdout:
