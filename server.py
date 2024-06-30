@@ -139,7 +139,7 @@ def run_localhostrun():
 
 def run_hrzn():
     hrzn_process = subprocess.Popen(
-        ["hrzn", "tunnel", "http://localhost:8008"],
+        ["cloudflared", "tunnel", "--url", "http://localhost:8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in hrzn_process.stdout:
