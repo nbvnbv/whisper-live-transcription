@@ -137,6 +137,16 @@ def run_localhostrun():
             print(line.strip())
     return localhostrun_process
 
+def run_hrzn():
+    hrzn_process = subprocess.Popen(
+        ["hrzn", "tunnel", "http://localhost:3000"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
+    for line in hrzn_process.stdout:
+        if "http" in line or "https://" in line:
+            print(line.strip())
+    return hrzn_process
+
 
 
 
@@ -146,8 +156,11 @@ if __name__ == "__main__":
     #lt_thread = threading.Thread(target=run_localtunnel)
     #lt_thread.start()
 
-    localhostrun_thread = threading.Thread(target=run_localhostrun)
-    localhostrun_thread.start()
+    #localhostrun_thread = threading.Thread(target=run_localhostrun)
+    #localhostrun_thread.start()
+
+    hrzn_thread = threading.Thread(target=run_hrzn)
+    hrzn_thread.start()
 
     # Give localhostrun some time to set up
     time.sleep(5)
