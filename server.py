@@ -142,7 +142,7 @@ def run_hrzn():
         ["/kaggle/working/whisper-live-transcription/bore_linux_amd64", "-s", "bore.digital", "-p", "2200", "-ls", "localhost", "-lp", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-    for line in hrzn_process.stderr:
+    for line in hrzn_process.stdout:
         #if "bore" in line or "https://" in line:
             
         print(line.strip())
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     hrzn_thread.start()
 
     # Give localhostrun some time to set up
-    time.sleep(5)
+    time.sleep(30)
 
     '''
     from pyngrok import ngrok
