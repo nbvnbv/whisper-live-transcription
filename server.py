@@ -142,7 +142,7 @@ def run_hrzn():
         ["/kaggle/working/whisper-live-transcription/bore_linux_amd64", "-s", "bore.digital", "-p", "2200", "-ls", "localhost", "-lp", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
-    for line in hrzn_process.stdout:
+    for line in hrzn_process.stderr:
         #if "bore" in line or "https://" in line:
             
         print(line.strip())
