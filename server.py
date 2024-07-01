@@ -138,15 +138,14 @@ def run_localhostrun():
     return localhostrun_process
 
 def run_hrzn():
-    print("starting runhrzn")
     hrzn_process = subprocess.Popen(
-        ["/kaggle/working/whisper-live-transcription/bore_linux_amd64", "-s", "bore.digital", "-p", "2200", "-ls", "localhost", "-lp", "8008"],
+        ["relay", "connect", "--name", "nbvnbv"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in hrzn_process.stdout:
-        #if "bore" in line or "https://" in line:
+        if "http" in line or "https://" in line:
             
-        print(line.strip())
+            print(line.strip())
 
     return hrzn_process
 
@@ -162,10 +161,11 @@ if __name__ == "__main__":
     #localhostrun_thread = threading.Thread(target=run_localhostrun)
     #localhostrun_thread.start()
 
-    
+    hrzn_thread = threading.Thread(target=run_hrzn)
+    hrzn_thread.start()
 
     # Give localhostrun some time to set up
-    
+    time.sleep(5)
 
     '''
     from pyngrok import ngrok
@@ -174,11 +174,5 @@ if __name__ == "__main__":
     print(ngrok_tunnel2.public_url)
     '''
 
-    subprocess.Popen(uvicorn.run(app, host="127.0.0.1", port=8008))
-    print("im afetr uvicorn")
-
-    time.sleep(30)
-
-    hrzn_thread = threading.Thread(target=run_hrzn)
-    hrzn_thread.start()
+    uvicorn.run(app, host="127.0.0.1", port=8008)
 
