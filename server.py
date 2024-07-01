@@ -139,7 +139,7 @@ def run_localhostrun():
 
 def run_hrzn():
     hrzn_process = subprocess.Popen(
-        ["/kaggle/working/whisper-live-transcription/bore", "local", "8008", "--to", "bore.pub"],
+        ["/kaggle/working/whisper-live-transcription/bore_linux_amd64", "-s", "bore.digital", "-p", "2200", "-ls", "localhost", "-lp", "8008"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
     for line in hrzn_process.stdout:
@@ -153,14 +153,14 @@ def run_hrzn():
 if __name__ == "__main__":
 
     # Start the lt tunnel in a separate thread
-    lt_thread = threading.Thread(target=run_localtunnel)
-    lt_thread.start()
+    #lt_thread = threading.Thread(target=run_localtunnel)
+    #lt_thread.start()
 
     #localhostrun_thread = threading.Thread(target=run_localhostrun)
     #localhostrun_thread.start()
 
-    #hrzn_thread = threading.Thread(target=run_hrzn)
-    #hrzn_thread.start()
+    hrzn_thread = threading.Thread(target=run_hrzn)
+    hrzn_thread.start()
 
     # Give localhostrun some time to set up
     time.sleep(5)
