@@ -161,11 +161,10 @@ if __name__ == "__main__":
     #localhostrun_thread = threading.Thread(target=run_localhostrun)
     #localhostrun_thread.start()
 
-    hrzn_thread = threading.Thread(target=run_hrzn)
-    hrzn_thread.start()
+    
 
     # Give localhostrun some time to set up
-    time.sleep(30)
+    
 
     '''
     from pyngrok import ngrok
@@ -174,5 +173,10 @@ if __name__ == "__main__":
     print(ngrok_tunnel2.public_url)
     '''
 
-    uvicorn.run(app, host="127.0.0.1", port=8008)
+    subprocess.Popen(uvicorn.run(app, host="127.0.0.1", port=8008))
+
+    time.sleep(30)
+
+    hrzn_thread = threading.Thread(target=run_hrzn)
+    hrzn_thread.start()
 
